@@ -1,4 +1,4 @@
-import {Column, Entity, ManyToOne} from "typeorm";
+import {Column, Entity, ManyToOne, Timestamp} from "typeorm";
 import {BaseEntity} from "../../../core/Base-module";
 import {ReportCategoriesEntity} from "../../reportCategories/entities/report-Categories.entity";
 import {ReportType} from "../../../core/enums/report-Type.enum";
@@ -30,6 +30,12 @@ export class ReportsEntity extends BaseEntity {
 
     @Column()
     targetId: number;
+
+    @Column({ type: 'varchar', length: 256, nullable: true })
+    description: string;
+
+    @Column({ type: 'timestamp'})
+    date: Timestamp;
 
 
 }
