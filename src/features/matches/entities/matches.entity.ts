@@ -1,11 +1,11 @@
 import {Column, Entity, ManyToOne} from "typeorm";
-import {BaseEntity} from "../../../core/Base-module";
-import {MatchType} from "../../../core/enums/matchType.enum";
-import { WinnerType } from "../../../core/enums/winnerType.enum";
-import {PlayerEntity} from "../../players/entities/player.entity";
+import {BaseModel} from "../../../core/Base-module";
+import {MatchType} from "../../../core/enums/match-type.enum";
+import { WinnerType } from "../../../core/enums/winner-type.enum";
+import {PlayerEntity} from "./player.entity";
 
 @Entity('matches')
-export class MatchesEntity extends BaseEntity {
+export class MatchesEntity extends BaseModel {
 
     @ManyToOne(() => PlayerEntity)
     firstPlayer: PlayerEntity;

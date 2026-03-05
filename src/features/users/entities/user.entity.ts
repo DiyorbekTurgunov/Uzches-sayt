@@ -1,31 +1,59 @@
-import {Column, Entity} from "typeorm";
-import {BaseEntity} from "../../../core/Base-module";
-import {LoginTypeEnum} from "../../../core/enums/loginType.enum";
+import { Column, Entity, OneToMany, Relation } from "typeorm";
+import { LoginType } from "../../../core/enums/login-type.enum";
+import { OtpCodeEntity } from "../../otpCodes/entities/otp-Codes.entity";
+import { BooksReviewsEntity } from "../../library/books/entities/books-Reviews.entity";
+import { BooksLikedEntity } from "../../library/books/entities/books-liked.entity";
+import { CourseReviewsEntity } from "../../courses/entities/course-Reviews.entity";
+import { CourseLikedEntity } from "../../courses/entities/course-liked.entity";
+import { UserLessonEntity } from "./user-lessons.entity";
+import { BaseModel } from "../../../core/Base-module";
+import { Role } from "../../../core/enums/role.enum";
 
-@Entity('user')
-export class UserEntity extends BaseEntity {
+@Entity('users')
+export class UserEntity extends BaseModel {
 
-    @Column({ type: 'varchar', length: 64 })
-    fullName: string;
+    @Column({ type: 'enum', enum: Role, default: Role.User })
+    role!: Role;
 
-    @Column({ type: 'varchar', length: 128 })
-    profileImage: string;
+    @Column({ length: 64 })
+    fullName!: string;
 
-    @Column({ type: 'varchar', length: 64 })
-    login: string;
+    @Column({ length: 128, nullable: true })
+    profileImage?: string;
 
-    @Column({ type: 'enum', enum: LoginTypeEnum })
-    loginType: LoginTypeEnum;
+    @Column({ length: 64, unique: true })
+    login!: string;
 
-    @Column({ type: 'varchar', length: 128 })
-    password: string;
+    @Column({ type: 'enum', enum: LoginType })
+    loginType!: LoginType;
 
-    @Column({ type: 'date'})
-    birthDate: Date;
+    @Column({ length: 128, nullable: true })
+    password?: string;
 
-    @Column()
-    isVerified: boolean;
+    @Column({ type: 'date', nullable: true })
+    birthDate?: Date;
 
-    @Column()
-    isActive: boolean;
+    @Column({ type: 'boolean', default: false })
+    isVerified!: boolean;
+
+    @Column({ type: 'boolean', default: false })
+    isActive!: boolean;
+
+    @OneToMany(() => OtpCodeEntity, (otpCodeEntity) => otpCodeEntity.user)
+    otpCodes?: Relation<OtpCodeEntity[]>;
+
+    @OneToMany(() => BooksReviewsEntity, (booksReviewsEntity) => booksReviewsEntity.user)
+    bookReviews?: Relation<BooksReviewsEntity[]>;
+
+    @OneToMany(() => BooksLikedEntity, (booksLikedEntity) => booksLikedEntity.user)
+    bookLikes?: Relation<BooksLikedEntity[]>;
+
+    @OneToMany(() => CourseReviewsEntity, (courseReviewsEntity) => courseReviewsEntity.user)
+    courseReviews?: Relation<CourseReviewsEntity[]>;
+
+    @OneToMany(() => CourseLikedEntity, (courseLikedEntity) => courseLikedEntity.user)
+    courseLikes?: Relation<CourseLikedEntity[]>;
+
+    @OneToMany(() => UserLessonEntity, (lesson) => lesson.user)
+    lessons?: Relation<UserLessonEntity[]>;
 }

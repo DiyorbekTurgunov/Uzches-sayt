@@ -1,8 +1,8 @@
 import {Column, Entity, Timestamp} from "typeorm";
-import {BaseEntity} from "../../../core/Base-module";
+import {BaseModel} from "../../../core/Base-module";
 
 @Entity()
-export class NewsEntity extends BaseEntity {
+export class NewsEntity extends BaseModel {
 
     @Column({ type: 'varchar', length: 256 })
     title: string;

@@ -1,23 +1,19 @@
-import {Column, Entity, ManyToOne, Timestamp} from "typeorm";
-import {BaseEntity} from "../../../core/Base-module";
-import {UserEntity} from "../../users/entities/user.entity";
-import {OtpTypeEnum} from "../../../core/enums/otpType.enum";
+import { BaseModel } from "../../../core/Base-module";
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { OtpType } from "../../../core/enums/otp-type.enum";
+import { UserEntity } from "../../users/entities/user.entity";
 
-@Entity()
-export class OtpCodesEntity extends BaseEntity {
-
-    @ManyToOne(() => UserEntity)
-    user: UserEntity;
-
+@Entity('otpCodes')
+export class OtpCodeEntity extends BaseModel {
     @Column()
-    userId: number;
+    userId!: number;
 
-    @Column({ type: 'varchar', length: 6 })
-    code: string;
+    @ManyToOne(() => UserEntity, (user) => user.otpCodes, { onDelete: 'CASCADE' })
+    user?: UserEntity;
 
-    @Column({ type: 'timestamp'})
-    date: Timestamp;
+    @Column({ length: 6 })
+    code!: string;
 
-    @Column({ type: 'enum', enum: OtpTypeEnum})
-    type: OtpTypeEnum;
+    @Column({ type: 'enum', enum: OtpType })
+    type!: OtpType;
 }

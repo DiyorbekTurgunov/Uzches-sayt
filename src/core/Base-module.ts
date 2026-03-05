@@ -1,6 +1,6 @@
 import { PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, } from 'typeorm';
 
-export abstract class BaseEntity {
+export abstract class BaseModel {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -9,4 +9,7 @@ export abstract class BaseEntity {
 
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
+}
+
+export class BaseModule {
 }
