@@ -1,18 +1,18 @@
-import {Column, Entity, ManyToOne, Timestamp} from "typeorm";
-import { BaseModule } from "../../../core/Base-module";
-import {CourseEntity} from "./course.entity";
-import {CourseSectionsEntity} from "./course-Sections.entity";
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { BaseModel } from '../../../core/Base-module';
+import { CourseEntity } from './course.entity';
+import { CourseSectionsEntity } from './course-sections.entity';
 
 @Entity('courseLessons')
-export class CourseLessonsEntity extends BaseModule {
+export class CourseLessonsEntity extends BaseModel {
 
-    @ManyToOne(() => CourseEntity)
+    @ManyToOne(() => CourseEntity, { onDelete: 'CASCADE' })
     course: CourseEntity;
 
     @Column()
     courseId: number;
 
-    @ManyToOne(() => CourseSectionsEntity)
+    @ManyToOne(() => CourseSectionsEntity, { onDelete: 'CASCADE' })
     courseSection: CourseSectionsEntity;
 
     @Column()
@@ -27,16 +27,15 @@ export class CourseLessonsEntity extends BaseModule {
     @Column({ type: 'varchar', length: 128, nullable: true })
     thumbnail: string;
 
-    @Column({ type: 'varchar', length: 256, })
+    @Column({ type: 'varchar', length: 256 })
     video: string;
 
     @Column({ nullable: true })
-    order: number
+    order: number;
 
-    @Column({ type: 'timestamp'})
-    date: Timestamp;
+    @Column({ type: 'timestamp' })
+    date: Date;
 
     @Column({ type: 'boolean', default: false })
     isFree: boolean;
-
 }

@@ -1,15 +1,15 @@
-import {Column, Entity, ManyToOne} from "typeorm";
-import {BaseModel} from "../../../core/Base-module";
-import {CountriesEntity} from "./countries.entity";
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { BaseModel } from '../../../core/Base-module';
+import { CountryEntity } from '../../common/entites/country.entity';
 
-@Entity('player')
+@Entity('players')
 export class PlayerEntity extends BaseModel {
 
-    @ManyToOne(() => CountriesEntity)
-    country: CountriesEntity;
+    @ManyToOne(() => CountryEntity)
+    country: CountryEntity;
 
     @Column()
-    CountryId: number;
+    countryId: number;
 
     @Column({ type: 'varchar', length: 64 })
     fullName: string;
@@ -18,12 +18,11 @@ export class PlayerEntity extends BaseModel {
     image: string;
 
     @Column({ nullable: true })
-    classic: string;
+    classic: number;
 
     @Column({ nullable: true })
-    rapid: string;
+    rapid: number;
 
     @Column({ nullable: true })
-    blitz: string;
-
+    blitz: number;
 }

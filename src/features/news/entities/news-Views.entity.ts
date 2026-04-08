@@ -1,29 +1,28 @@
-import {Column, Entity, ManyToOne, Timestamp} from "typeorm";
-import {BaseModel} from "../../../core/Base-module";
-import {UserEntity} from "../../users/entities/user.entity";
-import {NewsEntity} from "./news.entity";
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { UserEntity } from '../../authentication/entities/user.entity';
+import { NewsEntity } from './news.entity';
 
 @Entity('newsViews')
-export class NewsViews extends BaseModel {
+export class NewsViewsEntity {
 
-    @ManyToOne(() => UserEntity)
-    user: UserEntity;
-
-    @Column()
+    @PrimaryColumn()
     userId: number;
 
-    @ManyToOne(() => NewsEntity)
-    news: NewsEntity;
+    @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+    user: UserEntity;
 
-    @Column()
+    @PrimaryColumn()
     newsId: number;
 
-    @Column({ type: 'timestamp'})
-    firstDate: Timestamp;
+    @ManyToOne(() => NewsEntity, { onDelete: 'CASCADE' })
+    news: NewsEntity;
 
-    @Column({ type: 'timestamp'})
-    lastDate: Timestamp;
+    @Column({ type: 'timestamp' })
+    firstDate: Date;
+
+    @Column({ type: 'timestamp' })
+    lastDate: Date;
 
     @Column({ default: 1 })
-    count: number
+    count: number;
 }

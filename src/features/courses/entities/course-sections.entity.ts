@@ -1,11 +1,11 @@
-import {Column, Entity, ManyToOne, Timestamp} from "typeorm";
-import {BaseModel} from "../../../core/Base-module";
-import {CourseEntity} from "./course.entity";
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { BaseModel } from '../../../core/Base-module';
+import { CourseEntity } from './course.entity';
 
 @Entity('courseSections')
 export class CourseSectionsEntity extends BaseModel {
 
-    @ManyToOne(() => CourseEntity)
+    @ManyToOne(() => CourseEntity, { onDelete: 'CASCADE' })
     course: CourseEntity;
 
     @Column()
@@ -17,6 +17,6 @@ export class CourseSectionsEntity extends BaseModel {
     @Column({ nullable: true })
     order: number;
 
-    @Column()
-    date: Timestamp;
+    @Column({ type: 'timestamp' })
+    date: Date;
 }

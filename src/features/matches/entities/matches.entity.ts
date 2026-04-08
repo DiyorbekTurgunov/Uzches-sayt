@@ -1,8 +1,8 @@
-import {Column, Entity, ManyToOne} from "typeorm";
-import {BaseModel} from "../../../core/Base-module";
-import {MatchType} from "../../../core/enums/match-type.enum";
-import { WinnerType } from "../../../core/enums/winner-type.enum";
-import {PlayerEntity} from "./player.entity";
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { BaseModel } from '../../../core/Base-module';
+import { MatchType } from '../../../core/enums/match-type.enum';
+import { WinnerType } from '../../../core/enums/winner-type.enum';
+import { PlayerEntity } from './player.entity';
 
 @Entity('matches')
 export class MatchesEntity extends BaseModel {
@@ -11,7 +11,7 @@ export class MatchesEntity extends BaseModel {
     firstPlayer: PlayerEntity;
 
     @Column()
-    FirstPlayerId: number;
+    firstPlayerId: number;
 
     @Column()
     firstPlayerResult: number;
@@ -25,16 +25,15 @@ export class MatchesEntity extends BaseModel {
     @Column()
     secondPlayerResult: number;
 
-    @Column({ type: 'enum', enum: MatchType})
+    @Column({ type: 'enum', enum: MatchType })
     type: MatchType;
 
     @Column()
     moves: number;
 
-    @Column({ type: 'date'})
+    @Column({ type: 'date' })
     date: Date;
 
     @Column({ type: 'enum', enum: WinnerType })
     winner: WinnerType;
-
 }

@@ -1,7 +1,7 @@
-import {Column, Entity, Timestamp} from "typeorm";
-import {BaseModel} from "../../../core/Base-module";
+import { Column, Entity } from 'typeorm';
+import { BaseModel } from '../../../core/Base-module';
 
-@Entity()
+@Entity('news')
 export class NewsEntity extends BaseModel {
 
     @Column({ type: 'varchar', length: 256 })
@@ -10,9 +10,9 @@ export class NewsEntity extends BaseModel {
     @Column({ type: 'varchar', length: 128 })
     image: string;
 
-    @Column({ type: 'text'})
+    @Column({ type: 'text' })
     content: string;
 
-    @Column({ type: 'timestamp'})
-    date: Timestamp;
+    @Column({ type: 'timestamp' })
+    date: Date;
 }

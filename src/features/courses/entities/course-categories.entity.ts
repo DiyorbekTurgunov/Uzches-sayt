@@ -1,7 +1,7 @@
-import {Column, Entity} from "typeorm";
-import {BaseModel} from "../../../core/Base-module";
+import { Column, Entity } from 'typeorm';
+import { BaseModel } from '../../../core/Base-module';
 
-@Entity()
+@Entity('courseCategories')
 export class CourseCategoriesEntity extends BaseModel {
 
     @Column({ type: 'varchar', length: 64 })

@@ -1,38 +1,20 @@
-import {Expose} from "class-transformer";
-import {BaseModel} from "../../../../core/Base-module";
+import { ApiProperty } from '@nestjs/swagger';
+import { Expose } from 'class-transformer';
 
-export class CourseListDto extends BaseModel{
-
-    @Expose()
-    authorId: number;
-
-    @Expose()
-    languageId: number;
-
-    @Expose()
-    difficultyLevelId: number;
-
-    @Expose()
-    title: string;
-
-    @Expose()
-    image: string;
-
-    @Expose()
-    price: number;
-
-    @Expose()
-    newPrice: number;
-
-    @Expose()
-    reviewsCount: number;
-
-    @Expose()
-    rating: number;
-
-    @Expose()
-    SectionsCount: number;
-
-    @Expose()
-    LessonsCount: number;
+export class CourseListDto {
+    @ApiProperty() @Expose() id: number;
+    @ApiProperty() @Expose() authorId: number;
+    @ApiProperty() @Expose() categoryId: number;
+    @ApiProperty() @Expose() languageId: number;
+    @ApiProperty() @Expose() difficultyId: number;
+    @ApiProperty() @Expose() title: string;
+    @ApiProperty() @Expose() image: string;
+    @ApiProperty() @Expose() price: number;
+    @ApiProperty() @Expose() newPrice: number;
+    @ApiProperty() @Expose() isPublished: boolean;
+    @ApiProperty() @Expose() reviewsCount: number;
+    @ApiProperty() @Expose() rating: number;
+    @ApiProperty() @Expose() sectionsCount: number;
+    @ApiProperty() @Expose() lessonsCount: number;
+    @ApiProperty() @Expose() createdAt: Date;
 }

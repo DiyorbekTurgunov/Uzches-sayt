@@ -1,67 +1,15 @@
-import {ApiProperty} from "@nestjs/swagger";
-import {IsInt, IsNumber, IsOptional, IsString, MaxLength} from "class-validator";
-import {Type} from "class-transformer";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsInt, IsNumber, IsOptional, IsString, MaxLength, Min } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CourseUpdateDto {
-
-    @ApiProperty()
-    @IsOptional()
-    authorId: number;
-
-    @ApiProperty()
-    @IsOptional()
-    languageId: number;
-
-    @ApiProperty()
-    @IsOptional()
-    difficultyLevelId: number;
-
-    @ApiProperty()
-    @IsString()
-    @MaxLength(128)
-    @IsOptional()
-    title: string;
-
-    @ApiProperty()
-    @IsString()
-    @MaxLength(128)
-    @IsOptional()
-    image: string;
-
-    @ApiProperty()
-    @IsNumber({ maxDecimalPlaces: 2 })
-    @Type(() => Number)
-    @IsOptional()
-    price: number;
-
-    @ApiProperty()
-    @IsNumber({ maxDecimalPlaces: 2 })
-    @IsOptional()
-    @Type(() => Number)
-    newPrice: number;
-
-    @ApiProperty()
-    @Type(() => Number)
-    @IsInt()
-    @IsOptional()
-    reviewsCount: number;
-
-    @ApiProperty()
-    @IsNumber({ maxDecimalPlaces: 1 })
-    @Type(() => Number)
-    @IsOptional()
-    @IsOptional()
-    rating: number;
-
-    @ApiProperty()
-    @IsInt()
-    @Type(() => Number)
-    @IsOptional()
-    SectionsCount: number;
-
-    @ApiProperty()
-    @IsInt()
-    @Type(() => Number)
-    @IsOptional()
-    LessonsCount: number;
+    @ApiProperty({ required: false }) @IsInt() @IsOptional() @Type(() => Number) authorId: number;
+    @ApiProperty({ required: false }) @IsInt() @IsOptional() @Type(() => Number) categoryId: number;
+    @ApiProperty({ required: false }) @IsInt() @IsOptional() @Type(() => Number) languageId: number;
+    @ApiProperty({ required: false }) @IsInt() @IsOptional() @Type(() => Number) difficultyId: number;
+    @ApiProperty({ required: false }) @IsString() @MaxLength(128) @IsOptional() title: string;
+    @ApiProperty({ required: false }) @IsString() @MaxLength(128) @IsOptional() image: string;
+    @ApiProperty({ required: false }) @IsNumber({ maxDecimalPlaces: 2 }) @Min(0) @IsOptional() @Type(() => Number) price: number;
+    @ApiProperty({ required: false }) @IsNumber({ maxDecimalPlaces: 2 }) @Min(0) @IsOptional() @Type(() => Number) newPrice: number;
+    @ApiProperty({ required: false }) @IsBoolean() @IsOptional() isPublished: boolean;
 }

@@ -1,17 +1,24 @@
-import {Column, Entity, ManyToOne} from "typeorm";
-import {BaseModel} from "../../../core/Base-module";
-import {AuthorEntity} from "../../library/authors/entities/authors.entity";
-import {LanguagesEntity} from "../../library/languages/entities/laguages.entity";
-import {DifficultyEntity} from "../../common/difficulties/entities/difficulties.entity";
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { BaseModel } from '../../../core/Base-module';
+import { AuthorEntity } from '../../common/entites/authors.entity';
+import { LanguagesEntity } from '../../common/entites/laguages.entity';
+import { DifficultyEntity } from '../../common/entites/difficulty.entity';
+import { CourseCategoriesEntity } from './course-categories.entity';
 
 @Entity('courses')
-export class Course extends BaseModel {
+export class CourseEntity extends BaseModel {
 
     @ManyToOne(() => AuthorEntity)
     author: AuthorEntity;
 
     @Column()
     authorId: number;
+
+    @ManyToOne(() => CourseCategoriesEntity)
+    category: CourseCategoriesEntity;
+
+    @Column()
+    categoryId: number;
 
     @ManyToOne(() => LanguagesEntity)
     language: LanguagesEntity;
@@ -20,10 +27,10 @@ export class Course extends BaseModel {
     languageId: number;
 
     @ManyToOne(() => DifficultyEntity)
-    difficultyLevel: DifficultyEntity;
+    difficulty: DifficultyEntity;
 
     @Column()
-    difficultyLevelId: number;
+    difficultyId: number;
 
     @Column({ type: 'varchar', length: 128 })
     title: string;
@@ -34,18 +41,21 @@ export class Course extends BaseModel {
     @Column({ type: 'decimal', precision: 12, scale: 2 })
     price: number;
 
-    @Column({ type: 'decimal', precision: 12, scale: 2 ,nullable: true})
+    @Column({ type: 'decimal', precision: 12, scale: 2, nullable: true })
     newPrice: number;
+
+    @Column({ type: 'boolean', default: false })
+    isPublished: boolean;
 
     @Column({ default: 0 })
     reviewsCount: number;
 
-    @Column({ type: 'decimal', precision: 2, scale: 1, nullable: true})
+    @Column({ type: 'decimal', precision: 2, scale: 1, nullable: true })
     rating: number;
 
     @Column({ default: 0 })
-    SectionsCount: number;
+    sectionsCount: number;
 
     @Column({ default: 0 })
-    LessonsCount: number;
+    lessonsCount: number;
 }

@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:18-apline
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1507
+      POSTGRES_DB: erp
+    healthcheck:
+      test: [ "CMD-SHELL", "pg-isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    backend:
+      build: Dockerfile
+      depends_on:
+        postgres:
+          condition: service_healthy
+      ports:
+        - "3000:3000"
+      environment:
+        DB_URL

@@ -1,23 +1,22 @@
-import {Column, Entity, ManyToOne, Timestamp} from "typeorm";
-import {BaseModel} from "../../../core/Base-module";
-import {UserEntity} from "../../users/entities/user.entity";
-import {CourseEntity} from "./course.entity";
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { UserEntity } from '../../authentication/entities/user.entity';
+import { CourseEntity } from './course.entity';
 
-@Entity('coursesLiked')
-export class CourseLikedEntity extends BaseModel {
+@Entity('courseLikes')
+export class CourseLikedEntity {
 
-    @ManyToOne(() => UserEntity)
-    user: UserEntity;
-
-    @Column()
+    @PrimaryColumn()
     userId: number;
 
-    @ManyToOne(() => CourseEntity)
-    course: CourseEntity;
+    @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+    user: UserEntity;
 
-    @Column()
+    @PrimaryColumn()
     courseId: number;
 
+    @ManyToOne(() => CourseEntity, { onDelete: 'CASCADE' })
+    course: CourseEntity;
+
     @Column({ type: 'timestamp' })
-    date: Timestamp;
+    created: Date;
 }

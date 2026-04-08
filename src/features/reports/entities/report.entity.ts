@@ -1,35 +1,30 @@
-import {Column, Entity, ManyToOne, Timestamp} from "typeorm";
-import {BaseModel} from "../../../core/Base-module";
-import {ReportCategoriesEntity} from "./report-Categories.entity";
-import {ReportType} from "../../../core/enums/report-type.enum";
-import {CourseReviewsEntity} from "../../courses/entities/course-Reviews.entity";
-import {BooksReviewsEntity} from "../../library/books/entities/books-Reviews.entity";
+import { Column, Entity, ManyToOne } from 'typeorm';
+import { BaseModel } from '../../../core/Base-module';
+import { ReportCategoryEntity } from './report-category.entity';
+import { ReportType } from '../../../core/enums/report-type.enum';
+import { UserEntity } from '../../authentication/entities/user.entity';
 
 @Entity('reports')
 export class ReportEntity extends BaseModel {
 
-    @ManyToOne(() => ReportCategoriesEntity)
-    reportCategory: ReportCategoriesEntity;
+    @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+    user: UserEntity;
 
     @Column()
-    reportCategoryId: number;
+    userId: number;
 
-    @Column({ type: 'enum', enum: ReportType})
+    @ManyToOne(() => ReportCategoryEntity)
+    category: ReportCategoryEntity;
+
+    @Column()
+    categoryId: number;
+
+    @Column({ type: 'enum', enum: ReportType })
     target: ReportType;
-
-    @ManyToOne(() => CourseReviewsEntity)
-    courseReviews: CourseReviewsEntity;
-
-    @ManyToOne(() => BooksReviewsEntity)
-    bookReviews: BooksReviewsEntity;
 
     @Column()
     targetId: number;
 
     @Column({ type: 'varchar', length: 256, nullable: true })
     description: string;
-
-    @Column({ type: 'timestamp'})
-    date: Timestamp;
-
 }
