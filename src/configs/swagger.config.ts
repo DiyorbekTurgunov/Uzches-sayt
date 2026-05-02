@@ -6,8 +6,11 @@ export const configureSwagger = (app: INestApplication) => {
     .setTitle('UzChess')
     .setVersion('1.0.0')
     .addBearerAuth()
+    .addSecurityRequirements('bearer')
     .build();
 
   let docs = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('/docs', app, docs);
+  SwaggerModule.setup('/docs', app, docs, {
+    swaggerOptions: { persistAuthorization: true },
+  });
 };

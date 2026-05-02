@@ -6,6 +6,10 @@ import { CourseEntity } from '../entities/course.entity';
 import { CourseCreateDto } from '../dto/course/course-create.dto';
 import { CourseUpdateDto } from '../dto/course/course-update.dto';
 import { CourseListDto } from '../dto/course/course-list.dto';
+import {NewsCreateDto} from "../../news/dto/news/news-create.dto";
+import {NewsEntity} from "../../news/entities/news.entity";
+
+type MulterFile = Express.Multer.File;
 
 @Injectable()
 export class CourseService {
@@ -14,10 +18,10 @@ export class CourseService {
         private readonly repo: Repository<CourseEntity>,
     ) {}
 
-    async create(payload: CourseCreateDto) {
-        const item = this.repo.create(payload);
-        await this.repo.save(item);
-        return plainToInstance(CourseListDto, item, { excludeExtraneousValues: true });
+    async create(payload: CourseCreateDto, image: MulterFile): Promise<CourseEntity> {
+        const newCourse = CourseEntity.create({...payload, image: image.path});
+        await CourseEntity.save(newCourse)
+        return newCourse;
     }
     async getAll() {
         return plainToInstance(CourseListDto, await this.repo.find(), { excludeExtraneousValues: true });

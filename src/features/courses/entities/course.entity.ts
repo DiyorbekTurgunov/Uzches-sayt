@@ -1,33 +1,34 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne} from 'typeorm';
+import type { Relation } from "typeorm";
 import { BaseModel } from '../../../core/Base-module';
-import { AuthorEntity } from '../../common/entites/authors.entity';
-import { LanguagesEntity } from '../../common/entites/laguages.entity';
-import { DifficultyEntity } from '../../common/entites/difficulty.entity';
-import { CourseCategoriesEntity } from './course-categories.entity';
+import type { AuthorEntity } from '../../common/entites/authors.entity';
+import type { LanguagesEntity } from '../../common/entites/laguages.entity';
+import type { DifficultyEntity } from '../../common/entites/difficulty.entity';
+import type { CourseCategoriesEntity } from './course-categories.entity';
 
 @Entity('courses')
 export class CourseEntity extends BaseModel {
 
-    @ManyToOne(() => AuthorEntity)
-    author: AuthorEntity;
+    @ManyToOne('AuthorEntity')
+    author: Relation<AuthorEntity>;
 
     @Column()
     authorId: number;
 
-    @ManyToOne(() => CourseCategoriesEntity)
-    category: CourseCategoriesEntity;
+    @ManyToOne('CourseCategoriesEntity')
+    category: Relation<CourseCategoriesEntity>;
 
     @Column()
     categoryId: number;
 
-    @ManyToOne(() => LanguagesEntity)
-    language: LanguagesEntity;
+    @ManyToOne('LanguagesEntity')
+    language: Relation<LanguagesEntity>;
 
     @Column()
     languageId: number;
 
-    @ManyToOne(() => DifficultyEntity)
-    difficulty: DifficultyEntity;
+    @ManyToOne('DifficultyEntity')
+    difficulty: Relation<DifficultyEntity>;
 
     @Column()
     difficultyId: number;

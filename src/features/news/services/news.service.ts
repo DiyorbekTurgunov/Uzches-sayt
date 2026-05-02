@@ -7,6 +7,9 @@ import { NewsCreateDto } from '../dto/news/news-create.dto';
 import { NewsUpdateDto } from '../dto/news/news-update.dto';
 import { NewsListDto } from '../dto/news/news-list.dto';
 
+type MulterFile = Express.Multer.File;
+
+
 @Injectable()
 export class NewsService {
     constructor(
@@ -14,10 +17,10 @@ export class NewsService {
         private readonly repo: Repository<NewsEntity>,
     ) {}
 
-    async create(payload: NewsCreateDto) {
-        const news = this.repo.create(payload);
-        await this.repo.save(news);
-        return plainToInstance(NewsListDto, news, { excludeExtraneousValues: true });
+    async create(payload: NewsCreateDto, image: MulterFile): Promise<NewsEntity> {
+        const newNews = NewsEntity.create({...payload, image: image.path});
+        await NewsEntity.save(newNews)
+        return newNews;
     }
 
     async getAll() {

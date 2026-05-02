@@ -6,14 +6,14 @@ export class SignUpDto {
   @IsString()
   @MaxLength(64)
   @ApiProperty()
-  fullName!: string;
+  fullName: string;
 
   @IsString()
   @MaxLength(64)
   @ApiProperty()
-  login!: string;
+  login: string;
 
   @IsEnum(LoginType)
-  @ApiProperty()
-  loginType!: LoginType;
+  @ApiProperty({ enum: LoginType })
+  loginType: LoginType;
 }

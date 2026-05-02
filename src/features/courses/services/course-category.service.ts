@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CourseCategoriesEntity } from '../entities/course-categories.entity';
 import { CourseCateCreateDto } from '../dto/course-cate/course-cate-create.dto';
 import { CourseCateUpdateDto } from '../dto/course-cate/course-cate-update.dto';
+import {PaginationFilters} from "../../common/filters/paginition.filters";
 
 @Injectable()
 export class CourseCategoryService {
@@ -13,7 +14,7 @@ export class CourseCategoryService {
     ) {}
 
     async create(payload: CourseCateCreateDto) { return this.repo.save(this.repo.create(payload)); }
-    async getAll() { return this.repo.find(); }
+    async getAll(filters: PaginationFilters) { return this.repo.find(); }
     async getOne(id: number) {
         const item = await this.repo.findOneBy({ id });
         if (!item) throw new NotFoundException('Course category not found');

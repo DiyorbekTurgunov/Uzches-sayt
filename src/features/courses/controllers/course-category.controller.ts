@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CourseCategoryService } from '../services/course-category.service';
 import { CourseCateCreateDto } from '../dto/course-cate/course-cate-create.dto';
 import { CourseCateUpdateDto } from '../dto/course-cate/course-cate-update.dto';
 import { AuthenticationGuard } from '../../../core/guards/authentication.guard';
+import {PaginationFilters} from "../../common/filters/paginition.filters";
 
 @ApiTags('course-categories')
 @Controller('course-categories')
@@ -15,7 +16,7 @@ export class CourseCategoryController {
     create(@Body() dto: CourseCateCreateDto) { return this.service.create(dto); }
 
     @Get()
-    getAll() { return this.service.getAll(); }
+    getAll(@Query() filters: PaginationFilters) { return this.service.getAll(filters); }
 
     @Get(':id')
     getOne(@Param('id') id: number) { return this.service.getOne(id); }

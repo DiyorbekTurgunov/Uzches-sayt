@@ -1,12 +1,13 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne} from 'typeorm';
+import type { Relation } from "typeorm";
 import { BaseModel } from '../../../core/Base-module';
-import { CountryEntity } from '../../common/entites/country.entity';
+import type { CountryEntity } from '../../common/entites/country.entity';
 
 @Entity('players')
 export class PlayerEntity extends BaseModel {
 
-    @ManyToOne(() => CountryEntity)
-    country: CountryEntity;
+    @ManyToOne('CountryEntity')
+    country: Relation<CountryEntity>;
 
     @Column()
     countryId: number;

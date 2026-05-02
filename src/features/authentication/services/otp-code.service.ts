@@ -12,6 +12,7 @@ export class OtpCodeService {
       userId: user.id,
       code: this.generateOtp(),
       type: type,
+      date: new Date(),
     });
 
     await OtpCodeEntity.save(otpCode);
@@ -27,7 +28,7 @@ export class OtpCodeService {
     }
 
     let otpExpire = Number(process.env.OTP_EXPIRE) * 1000;
-    let difference = Date.now() - otpCode.createdAt.getTime();
+    let difference = Date.now() - otpCode.date.getTime();
     if (difference > otpExpire) {
       throw new BadRequestException('Code expired');
     }

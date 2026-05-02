@@ -20,5 +20,5 @@ export class NewsListDto {
 
     @ApiProperty()
     @Expose()
-    createdAt: Date;
+    date: Date;
 }

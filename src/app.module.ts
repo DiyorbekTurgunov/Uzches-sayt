@@ -8,6 +8,7 @@ import { NewsModule } from './features/news/news.module';
 import { MatchesModule } from './features/matches/matches.module';
 import { ReportsModule } from './features/reports/reports.module';
 import { CommonModule } from './features/common/common.module';
+import { UploadModule } from './core/upload/upload.module';
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { CommonModule } from './features/common/common.module';
         MatchesModule,
         ReportsModule,
         CommonModule,
+        UploadModule,
     ],
 })
 export class AppModule {}

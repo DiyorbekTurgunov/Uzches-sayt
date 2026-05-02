@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne} from 'typeorm';
+import type { Relation } from "typeorm";
 import { BaseModel } from '../../../core/Base-module';
 import { OtpType } from '../../../core/enums/otp-type.enum';
-import { UserEntity } from './user.entity';
+import type { UserEntity } from './user.entity';
 
 @Entity('otpCodes')
 export class OtpCodeEntity extends BaseModel {
@@ -9,8 +10,8 @@ export class OtpCodeEntity extends BaseModel {
     @Column()
     userId: number;
 
-    @ManyToOne(() => UserEntity, (user) => user.otpCodes, { onDelete: 'CASCADE' })
-    user: UserEntity;
+    @ManyToOne('UserEntity', 'otpCodes', { onDelete: 'CASCADE' })
+    user: Relation<UserEntity>;
 
     @Column({ type: 'varchar', length: 6 })
     code: string;

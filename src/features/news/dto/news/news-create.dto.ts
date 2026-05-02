@@ -1,18 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, MaxLength } from 'class-validator';
+import {Allow, IsDateString, IsString, MaxLength} from 'class-validator';
 
 export class NewsCreateDto {
-    @ApiProperty()
     @IsString()
     @MaxLength(256)
+    @ApiProperty()
     title: string;
 
-    @ApiProperty()
-    @IsString()
-    @MaxLength(128)
+    @Allow()
+    @ApiProperty({type: "string", format: "binary"})
     image: string;
 
-    @ApiProperty()
     @IsString()
+    @ApiProperty()
     content: string;
+
+    @IsDateString()
+    @ApiProperty({example: '2026-01-01T14:50:24.000Z'})
+    date: string;
+
+
 }

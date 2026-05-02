@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
-import { UserEntity } from '../../authentication/entities/user.entity';
-import { CourseLessonsEntity } from './course-lessons.entity';
+import { Column, Entity, ManyToOne, PrimaryColumn} from 'typeorm';
+import type { Relation } from "typeorm";
+import type { UserEntity } from '../../authentication/entities/user.entity';
+import type { CourseLessonsEntity } from './course-lessons.entity';
 
 @Entity('users_lessons')
 export class UserLessonEntity {
@@ -8,14 +9,14 @@ export class UserLessonEntity {
     @PrimaryColumn()
     userId: number;
 
-    @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
-    user: UserEntity;
+    @ManyToOne('UserEntity', { onDelete: 'CASCADE' })
+    user: Relation<UserEntity>;
 
     @PrimaryColumn()
     courseLessonId: number;
 
-    @ManyToOne(() => CourseLessonsEntity, { onDelete: 'CASCADE' })
-    courseLesson: CourseLessonsEntity;
+    @ManyToOne('CourseLessonsEntity', { onDelete: 'CASCADE' })
+    courseLesson: Relation<CourseLessonsEntity>;
 
     @Column({ nullable: true })
     stoppedAt: number;

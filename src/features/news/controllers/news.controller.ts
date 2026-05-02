@@ -1,9 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Patch,
+    Post,
+    UploadedFile,
+    UseGuards,
+    UseInterceptors
+} from '@nestjs/common';
+import {ApiTags, ApiBearerAuth, ApiConsumes} from '@nestjs/swagger';
 import { NewsService } from '../services/news.service';
 import { NewsCreateDto } from '../dto/news/news-create.dto';
 import { NewsUpdateDto } from '../dto/news/news-update.dto';
 import { AuthenticationGuard } from '../../../core/guards/authentication.guard';
+import {FileInterceptor} from "@nestjs/platform-express";
+import {storageOptions} from "../../../configs/multer.config";
 
 @ApiTags('news')
 @Controller('news')
@@ -11,10 +24,12 @@ export class NewsController {
     constructor(private readonly service: NewsService) {}
 
     @Post()
-    @UseGuards(AuthenticationGuard)
-    async create(@Body() payload: NewsCreateDto) {
-        return this.service.create(payload);
+    @ApiConsumes("multipart/form-data")
+    @UseInterceptors(FileInterceptor("image", {storage: storageOptions}))
+    async create(@Body() payload: NewsCreateDto, @UploadedFile() image: Express.Multer.File) {
+        return await this.service.create(payload, image)
     }
+
 
     @Get()
     async getAll() {

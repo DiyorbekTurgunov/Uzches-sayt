@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
-import { UserEntity } from '../../authentication/entities/user.entity';
-import { BooksEntity } from './books.entity';
+import { Column, Entity, ManyToOne, PrimaryColumn} from 'typeorm';
+import type { Relation } from "typeorm";
+import type { UserEntity } from '../../authentication/entities/user.entity';
+import type { BooksEntity } from './books.entity';
 
 @Entity('bookLikes')
 export class BooksLikedEntity {
@@ -8,14 +9,14 @@ export class BooksLikedEntity {
     @PrimaryColumn()
     userId: number;
 
-    @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
-    user: UserEntity;
+    @ManyToOne('UserEntity', { onDelete: 'CASCADE' })
+    user: Relation<UserEntity>;
 
     @PrimaryColumn()
     bookId: number;
 
-    @ManyToOne(() => BooksEntity, { onDelete: 'CASCADE' })
-    book: BooksEntity;
+    @ManyToOne('BooksEntity', { onDelete: 'CASCADE' })
+    book: Relation<BooksEntity>;
 
     @Column({ type: 'timestamp' })
     created: Date;

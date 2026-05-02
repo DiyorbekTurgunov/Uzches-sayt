@@ -1,6 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
-import { UserEntity } from '../../authentication/entities/user.entity';
-import { NewsEntity } from './news.entity';
+import type { Relation } from 'typeorm';
+import type { UserEntity } from '../../authentication/entities/user.entity';
+import type { NewsEntity } from './news.entity';
 
 @Entity('newsViews')
 export class NewsViewsEntity {
@@ -8,14 +9,14 @@ export class NewsViewsEntity {
     @PrimaryColumn()
     userId: number;
 
-    @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
-    user: UserEntity;
+    @ManyToOne('UserEntity', { onDelete: 'CASCADE' })
+    user: Relation<UserEntity>;
 
     @PrimaryColumn()
     newsId: number;
 
-    @ManyToOne(() => NewsEntity, { onDelete: 'CASCADE' })
-    news: NewsEntity;
+    @ManyToOne('NewsEntity', { onDelete: 'CASCADE' })
+    news: Relation<NewsEntity>;
 
     @Column({ type: 'timestamp' })
     firstDate: Date;

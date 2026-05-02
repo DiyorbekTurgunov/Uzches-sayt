@@ -1,20 +1,21 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
+import type { Relation} from 'typeorm';
 import { BaseModel } from '../../../core/Base-module';
-import { ReportCategoryEntity } from './report-category.entity';
+import type { ReportCategoryEntity } from './report-category.entity';
 import { ReportType } from '../../../core/enums/report-type.enum';
-import { UserEntity } from '../../authentication/entities/user.entity';
+import type { UserEntity } from '../../authentication/entities/user.entity';
 
 @Entity('reports')
 export class ReportEntity extends BaseModel {
 
-    @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
-    user: UserEntity;
+    @ManyToOne('UserEntity', { onDelete: 'CASCADE' })
+    user: Relation<UserEntity>;
 
     @Column()
     userId: number;
 
-    @ManyToOne(() => ReportCategoryEntity)
-    category: ReportCategoryEntity;
+    @ManyToOne('ReportCategoryEntity')
+    category: Relation<ReportCategoryEntity>;
 
     @Column()
     categoryId: number;

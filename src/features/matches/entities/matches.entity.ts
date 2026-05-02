@@ -1,14 +1,15 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne} from 'typeorm';
+import type { Relation } from "typeorm";
 import { BaseModel } from '../../../core/Base-module';
 import { MatchType } from '../../../core/enums/match-type.enum';
 import { WinnerType } from '../../../core/enums/winner-type.enum';
-import { PlayerEntity } from './player.entity';
+import type { PlayerEntity } from './player.entity';
 
 @Entity('matches')
 export class MatchesEntity extends BaseModel {
 
-    @ManyToOne(() => PlayerEntity)
-    firstPlayer: PlayerEntity;
+    @ManyToOne('PlayerEntity')
+    firstPlayer: Relation<PlayerEntity>;
 
     @Column()
     firstPlayerId: number;
@@ -16,8 +17,8 @@ export class MatchesEntity extends BaseModel {
     @Column()
     firstPlayerResult: number;
 
-    @ManyToOne(() => PlayerEntity)
-    secondPlayer: PlayerEntity;
+    @ManyToOne('PlayerEntity')
+    secondPlayer: Relation<PlayerEntity>;
 
     @Column()
     secondPlayerId: number;

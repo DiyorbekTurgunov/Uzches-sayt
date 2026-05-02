@@ -1,19 +1,20 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne} from 'typeorm';
+import type { Relation } from "typeorm";
 import { BaseModel } from '../../../core/Base-module';
-import { UserEntity } from '../../authentication/entities/user.entity';
-import { CourseEntity } from './course.entity';
+import type { UserEntity } from '../../authentication/entities/user.entity';
+import type { CourseEntity } from './course.entity';
 
 @Entity('courseReviews')
 export class CourseReviewsEntity extends BaseModel {
 
-    @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
-    user: UserEntity;
+    @ManyToOne('UserEntity', { onDelete: 'CASCADE' })
+    user: Relation<UserEntity>;
 
     @Column()
     userId: number;
 
-    @ManyToOne(() => CourseEntity, { onDelete: 'CASCADE' })
-    course: CourseEntity;
+    @ManyToOne('CourseEntity', { onDelete: 'CASCADE' })
+    course: Relation<CourseEntity>;
 
     @Column()
     courseId: number;
